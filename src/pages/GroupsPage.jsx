@@ -34,12 +34,12 @@ if (memberErr) {
 
 const memberOf = memberOfData ?? [];
 const groupIds = memberOf.map((m) => m.group_id);
-if (memberOf.length === 0) {
-  setGroups([]);
-  return;
+
+if (groupIds.length === 0) {
+  // 仍然允许看到公开群，所以这里不要直接 return 空
+  // 让后面的 public groups 继续跑
 }
 
-const groupIds = memberOf.map((m) => m.group_id);
 
 // 1) 公开群
 const { data: publicGroupsData, error: e1 } = await supabase
