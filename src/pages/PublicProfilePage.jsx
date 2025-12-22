@@ -35,7 +35,19 @@ const PublicProfilePage = ({ targetUserId, currentUser, onBack }) => {
     // Posts
     const { data: postsData } = await supabase
       .from('posts')
-      .select('*, profiles(username)')
+      .select(`
+  id,
+  content,
+  media_url,
+  media_type,
+  created_at,
+  user_id,
+  profiles:profiles (
+    id,
+    display_name,
+    username
+  )
+`)
       .eq('user_id', targetUserId)
       .order('created_at', { ascending: false });
     
