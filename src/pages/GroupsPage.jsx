@@ -26,10 +26,7 @@ const GroupsPage = ({ currentUser }) => {
         .select('group_id')
         .order('created_at', { ascending: false });
 
-    if (!memberOf?.length) {
-        setGroups([]);
-        return;
-    }
+   
     
    // 你加入的群 id
 const groupIds = memberOf.map(m => m.group_id);
