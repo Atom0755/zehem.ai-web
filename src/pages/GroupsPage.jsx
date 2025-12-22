@@ -21,15 +21,25 @@ const GroupsPage = ({ currentUser }) => {
 
   const loadGroups = async () => {
     // Fetch groups where user is a member
-    const { data: memberOf } = await supabase
-        .from('group_members')
-        .select('group_id')
-        .order('created_at', { ascending: false });
+   const { data: memberOfData, error: memberErr } = await supabase
+  .from('group_members')
+  .select('group_id, role')
+  .eq('user_id', currentUser?.id);
 
-   
-    
-   // 你加入的群 id
-const groupIds = memberOf.map(m => m.group_id);
+if (memberErr) {
+  console.error('group_members error:', memberErr);
+  setGroups([]); // 至少不白屏
+  return;
+}
+
+const memberOf = memberOfData ?? [];
+const groupIds = memberOf.map((m) => m.group_id);
+if (memberOf.length === 0) {
+  setGroups([]);
+  return;
+}
+
+const groupIds = memberOf.map((m) => m.group_id);
 
 // 1) 公开群
 const { data: publicGroupsData, error: e1 } = await supabase
