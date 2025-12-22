@@ -78,9 +78,14 @@ const groupsData = Array.from(map.values());
     const formattedGroups = groupsData?.map(g => ({
         ...g,
         creatorId: g.creator_id,
-        members: g.group_members.map(m => m.user_id),
-        admins: g.group_members.filter(m => m.role === 'admin' || m.role === 'owner').map(m => m.user_id),
-        mentions: g.group_mentions.filter(m => !m.read).map(m => ({ userId: m.user_id }))
+        members: (g.group_members || []).map(m => m.user_id),
+admins: (g.group_members || [])
+  .filter(m => m.role === 'admin' || m.role === 'owner')
+  .map(m => m.user_id),
+mentions: (g.group_mentions || [])
+  .filter(m => !m.read)
+  .map(m => ({ userId: m.user_id })),
+
     })) || [];
 
     setGroups(formattedGroups);
