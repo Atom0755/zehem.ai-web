@@ -140,6 +140,12 @@ const PublicProfilePage = ({ targetUserId, currentUser, onBack }) => {
         toast({ title: "Joined group!", description: "You are now a member." });
     }
   };
+const safeName =
+  user?.username ||
+  user?.display_name ||
+  (user?.email ? user.email.split("@")[0] : "User");
+
+const safeInitial = (safeName?.[0] || "U").toUpperCase();
 
   if (!user) return <div className="p-8 text-center text-gray-500">Loading...</div>;
 
@@ -150,7 +156,7 @@ const PublicProfilePage = ({ targetUserId, currentUser, onBack }) => {
           <ArrowLeft className="w-5 h-5" />
         </Button>
         <div>
-          <h2 className="font-bold text-lg text-gray-800">@{user.username}</h2>
+          <h2 className="font-bold text-lg text-gray-800">@{safeName}</h2>
           <p className="text-xs text-gray-500">Profile View</p>
         </div>
       </div>
@@ -163,9 +169,9 @@ const PublicProfilePage = ({ targetUserId, currentUser, onBack }) => {
         >
           <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-blue-500 to-purple-600 opacity-10"></div>
           <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mb-4 relative z-10 ring-4 ring-white shadow-lg">
-            {user.username[0].toUpperCase()}
+            {safeInitial}
           </div>
-          <h1 className="text-2xl font-bold text-gray-800 mb-1">@{user.username}</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-1">@{safeName}</h1>
           <p className="text-gray-500 mb-4">{user.email}</p>
           
           <Button 
@@ -198,7 +204,7 @@ const PublicProfilePage = ({ targetUserId, currentUser, onBack }) => {
           <div className="space-y-4">
              <div className="flex items-center gap-2 text-gray-800 font-semibold text-lg">
                 <Users className="w-5 h-5 text-purple-600" />
-                <h3>Groups created by @{user.username}</h3>
+                <h3>Groups created by @{safeName}</h3>
              </div>
              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                {groups.map(group => (
