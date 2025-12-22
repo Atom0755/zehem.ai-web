@@ -24,23 +24,49 @@ const GroupsPage = ({ currentUser }) => {
     const { data: memberOf } = await supabase
         .from('group_members')
         .select('group_id')
-        .eq('user_id', currentUser.id);
+        .order('created_at', { ascending: false });
 
     if (!memberOf?.length) {
         setGroups([]);
         return;
     }
     
-    const groupIds = memberOf.map(m => m.group_id);
+   // 你加入的群 id
+const groupIds = memberOf.map(m => m.group_id);
 
-    const { data: groupsData } = await supabase
-        .from('groups')
-        .select(`
-            *,
-            group_members (user_id, role),
-            group_mentions (user_id, read)
-        `)
-        .in('id', groupIds);
+// 1) 公开群
+const { data: publicGroupsData, error: e1 } = await supabase
+  .from('groups')
+  .select(`
+    *,
+    group_members (user_id, role),
+    group_mentions (user_id, read)
+  `)
+  .eq('is_public', true);
+
+if (e1) console.error("public groups error:", e1);
+
+// 2) 我加入的群
+let memberGroupsData = [];
+if (groupIds.length > 0) {
+  const { data: g2, error: e2 } = await supabase
+    .from('groups')
+    .select(`
+      *,
+      group_members (user_id, role),
+      group_mentions (user_id, read)
+    `)
+    .in('id', groupIds);
+
+  if (e2) console.error("member groups error:", e2);
+  memberGroupsData = g2 || [];
+}
+
+// 3) 合并去重（按 group.id）
+const map = new Map();
+[...(publicGroupsData || []), ...memberGroupsData].forEach(g => map.set(g.id, g));
+const groupsData = Array.from(map.values());
+
     
     const formattedGroups = groupsData?.map(g => ({
         ...g,
