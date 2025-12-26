@@ -159,7 +159,12 @@ const AuthPage = () => {
 
              <div className="text-center">
                 <button onClick={toggleMode} className="text-gray-600 font-medium">
-                  {isLogin ? <span>Don't have an account?<br />沒帳戶？<br /> <span className="text-purple-600">Sign up<br />請注冊</span></span> : <span>Already have an account? <span className="text-purple-600">Sign in</span></span>}
+                  {isLogin ? <span>Don&apos;t have an account?
+      <br />
+      没账户？
+      <br /><span className="text-purple-600">Sign up</span>
+      <br />
+      <span className="text-purple-600">请注册</span> : <span>Already have an account? <span className="text-purple-600">Sign in</span></span>}
                 </button>
              </div>
 {/* 游客入口 */}
