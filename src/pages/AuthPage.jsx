@@ -97,7 +97,7 @@ const AuthPage = () => {
               {isLogin ? <LogIn className="w-8 h-8 text-white" /> : <UserPlus className="w-8 h-8 text-white" />}
             </motion.div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
-              {isLogin ? 'Welcome Back</br>欢迎朋友们来</br>建几千上万人大群</br>和加好友和开店</br>和赚ZEHEM币' : 'Join Community'}
+              {isLogin ? 'Welcome Back<br />欢迎朋友们来<br />建几千上万人大群<br />和加好友和开店<br />和赚ZEHEM币' : 'Join Community'}
             </h1>
             <p className="text-gray-600">
               {isLogin ? 'Sign in to access your account</br>请登录' : 'Create your account to get started'}
@@ -106,7 +106,7 @@ const AuthPage = () => {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email Address邮箱名称</br>（@只写左边的）</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Email Address邮箱名称<<br />（@只写左边的）</label>
               <div className="flex gap-2">
                 <input
                   type={selectedDomain === 'other' ? "email" : "text"}
@@ -136,7 +136,7 @@ const AuthPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none bg-gray-50 focus:bg-white pr-12"
-                  placeholder="Password请填写密码</br>（共8位数含一个大写字母和其它小写字母与数字）"
+                  placeholder="Password请填写密码<br />（共8位数含一个大写字母和其它小写字母与数字）"
                   autoComplete="current-password"
                 />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 p-1">
@@ -146,7 +146,7 @@ const AuthPage = () => {
             </div>
 
             <Button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-6 text-lg font-semibold shadow-lg">
-              {isLogin ? 'Sign In</br>登录' : 'Create Account'} <ArrowRight className="w-5 h-5 ml-2 opacity-80" />
+              {isLogin ? 'Sign In<br />登录' : 'Create Account'} <ArrowRight className="w-5 h-5 ml-2 opacity-80" />
             </Button>
           </form>
 
@@ -159,7 +159,7 @@ const AuthPage = () => {
 
              <div className="text-center">
                 <button onClick={toggleMode} className="text-gray-600 font-medium">
-                  {isLogin ? <span>Don't have an account?</br>沒帳戶？</br> <span className="text-purple-600">Sign up</br>請注冊</span></span> : <span>Already have an account? <span className="text-purple-600">Sign in</span></span>}
+                  {isLogin ? <span>Don't have an account?<br />沒帳戶？<br /> <span className="text-purple-600">Sign up<br />>請注冊</span></span> : <span>Already have an account? <span className="text-purple-600">Sign in</span></span>}
                 </button>
              </div>
 {/* 游客入口 */}
@@ -171,7 +171,7 @@ const AuthPage = () => {
     }}
     className="text-sm text-gray-500 hover:text-purple-600 underline"
   >
-    Guest（Visit Only)</br>以游客进入（不注册，仅观看）
+    Guest（Visit Only)<br />以游客进入（不注册，仅观看）
   </button>
 
   <div className="mt-1 text-xs text-gray-400">
