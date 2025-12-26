@@ -106,7 +106,7 @@ const AuthPage = () => {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email Address邮箱名称<<br />（只写左边的）</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2"><></>Email Address邮箱名称<br />（只写左边的）</label>
               <div className="flex gap-2">
                 <input
                   type={selectedDomain === 'other' ? "email" : "text"}
@@ -159,12 +159,21 @@ const AuthPage = () => {
 
              <div className="text-center">
                 <button onClick={toggleMode} className="text-gray-600 font-medium">
-                  {isLogin ? <span>Don&apos;t have an account?
-      <br />
-      没账户？
-      <br /><span className="text-purple-600">Sign up</span>
-      <br />
-      <span className="text-purple-600">请注册</span> : <span>Already have an account? <span className="text-purple-600">Sign in</span></span>}
+                  {isLogin ? (
+  <>
+    <span>Don't have an account?</span>
+    <br />
+    <span>没账户？</span>
+    <br />
+    <span className="text-purple-600">Sign up / 请注册</span>
+  </>
+) : (
+  <>
+    <span>Already have an account?</span>{" "}
+    <span className="text-purple-600">Sign in / 登录</span>
+  </>
+)}
+
                 </button>
              </div>
 {/* 游客入口 */}
