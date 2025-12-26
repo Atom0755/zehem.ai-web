@@ -165,7 +165,7 @@ const AuthPage = () => {
     <br />
     <span>没账户？</span>
     <br />
-    <span className="text-purple-600">Sign up / 请注册</span>
+    <span className="text-purple-600">Sign up / 请点这注册</span>
   </>
 ) : (
   <>
@@ -181,7 +181,7 @@ const AuthPage = () => {
   <button
     type="button"
     onClick={() => {
-      window.location.href = "/";
+      window.location.href = "moments";
     }}
     className="text-sm text-gray-500 hover:text-purple-600 underline"
   >
