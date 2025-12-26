@@ -159,9 +159,26 @@ const AuthPage = () => {
 
              <div className="text-center">
                 <button onClick={toggleMode} className="text-gray-600 font-medium">
-                  {isLogin ? <span>Don't have an account? <span className="text-purple-600">Sign up</span></span> : <span>Already have an account? <span className="text-purple-600">Sign in</span></span>}
+                  {isLogin ? <span>Don't have an account?沒帳戶？ <span className="text-purple-600">Sign up請注冊</span></span> : <span>Already have an account? <span className="text-purple-600">Sign in</span></span>}
                 </button>
              </div>
+{/* 游客入口 */}
+<div className="mt-4 text-center">
+  <button
+    type="button"
+    onClick={() => {
+      window.location.href = "/";
+    }}
+    className="text-sm text-gray-500 hover:text-purple-600 underline"
+  >
+    以游客进入（不注册，仅观看）
+  </button>
+
+  <div className="mt-1 text-xs text-gray-400">
+    游客不可发布朋友圈、不可创建群组
+  </div>
+</div>
+
           </div>
         </div>
       </motion.div>

@@ -90,19 +90,28 @@ export const AuthProvider = ({ children }) => {
   }, [toast]);
 
 
-  const signOut = useCallback(async () => {
+const signOut = useCallback(async () => {
+  try {
+    // 1️⃣ 调 Supabase 登出（即使报错也继续）
     const { error } = await supabase.auth.signOut();
-
     if (error) {
-      toast({
-        variant: "destructive",
-        title: "Sign out Failed",
-        description: error.message || "Something went wrong",
-      });
+      console.warn("Supabase signOut warning:", error.message);
     }
 
-    return { error };
-  }, [toast]);
+    // 2️⃣ 清理可能残留的本地 session
+    try {
+      localStorage.removeItem("sb-access-token");
+      localStorage.removeItem("sb-refresh-token");
+    } catch (e) {}
+
+    // 3️⃣ 强制刷新到首页（解决 Auth session missing）
+    window.location.href = "/";
+  } catch (err) {
+    console.error("Logout failed:", err);
+    window.location.href = "/";
+  }
+}, []);
+  
 
   const value = useMemo(() => ({
     user,
