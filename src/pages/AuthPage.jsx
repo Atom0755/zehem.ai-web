@@ -176,11 +176,15 @@ const AuthPage = () => {
     }}
     className="text-sm text-gray-500 hover:text-purple-600 underline"
   >
-    Guest<br />以游客进入（不注册，仅观看）
+    <>
+      Guest
+      <br />
+      以游客进入（不注册，仅观看）
+    </>
   </button>
 
   <div className="mt-1 text-xs text-gray-400">
-    游客不可发布朋友圈/不可创建朋友群
+    游客不可发布朋友圈，不可创建群组
   </div>
 </div>
 
