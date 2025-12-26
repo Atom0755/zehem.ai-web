@@ -5,6 +5,8 @@ import { UserPlus, UserMinus, UserCheck, Ban, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import FriendRequestCard from '@/components/FriendRequestCard';
+import { supabase } from "@/lib/customSupabaseClient";
+
 
 const ProfilePage = ({ currentUser, onViewProfile }) => {
   const [users, setUsers] = useState([]);
@@ -12,11 +14,41 @@ const ProfilePage = ({ currentUser, onViewProfile }) => {
   const [activeTab, setActiveTab] = useState('discover');
   const { toast } = useToast();
 
-  useEffect(() => {
-    const allUsers = JSON.parse(localStorage.getItem('users') || '[]');
-    setUsers(allUsers.filter(u => u.id !== currentUser.id));
-    setCurrentUserData(allUsers.find(u => u.id === currentUser.id));
-  }, [currentUser.id]);
+ useEffect(() => {
+  const loadUsers = async () => {
+    if (!currentUser?.id) return;
+
+    // 1) 读“当前用户自己的 profile”
+    const { data: me, error: meErr } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", currentUser.id)
+      .single();
+
+    if (meErr) {
+      console.error("Failed to load current user profile:", meErr);
+    } else {
+      setCurrentUserData(me);
+    }
+
+    // 2) 读“其他所有用户”
+    const { data: others, error: othersErr } = await supabase
+      .from("profiles")
+      .select("id, username, avatar_url, coins")
+      .neq("id", currentUser.id);
+
+    if (othersErr) {
+      console.error("Failed to load users:", othersErr);
+      setUsers([]);
+      return;
+    }
+
+    setUsers(others || []);
+  };
+
+  loadUsers();
+}, [currentUser?.id]);
+  
 
   const handleSendFriendRequest = (userId) => {
     const requests = JSON.parse(localStorage.getItem('friendRequests') || '[]');
