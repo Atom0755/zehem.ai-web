@@ -193,7 +193,7 @@ const AuthPage = () => {
   </button>
 
   <div className="mt-1 text-xs text-gray-400">
-    游客不可发布朋友圈，不可创建群组
+    游客不可发布朋友圈，不可创建朋友群
   </div>
 </div>
 
